@@ -1,0 +1,1 @@
+# ts-transform-graphql-tag

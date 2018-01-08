@@ -1,0 +1,34 @@
+{
+  "name": "ts-transform-graphql-tag",
+  "version": "0.1.0",
+  "description": "Compiles GraphQL tagged template strings using graphql-tag in TypeScript files.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firede/ts-transform-graphql-tag.git"
+  },
+  "keywords": [
+    "typescript",
+    "transform",
+    "graphql-tag",
+    "graphql"
+  ],
+  "author": {
+    "name": "Firede",
+    "email": "firede@firede.us"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/firede/ts-transform-graphql-tag/issues"
+  },
+  "homepage": "https://github.com/firede/ts-transform-graphql-tag#readme",
+  "devDependencies": {
+    "graphql-tag": "^2.6.1",
+    "prettier": "^1.9.2",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2"
+  }
+}
