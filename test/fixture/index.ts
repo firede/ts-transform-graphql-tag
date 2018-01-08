@@ -1,2 +1,6 @@
 import gql from "graphql-tag"
-export const query = gql``
+export const query = gql`
+  query {
+    hello
+  }
+`
