@@ -4,7 +4,8 @@
   "description": "Compiles GraphQL tagged template strings using graphql-tag in TypeScript files.",
   "main": "dist/index.js",
   "scripts": {
-    "test": ""
+    "precommit": "lint-staged",
+    "test": "rimraf test/fixture/*.js && jest"
   },
   "repository": {
     "type": "git",
@@ -26,9 +27,38 @@
   },
   "homepage": "https://github.com/firede/ts-transform-graphql-tag#readme",
   "devDependencies": {
+    "@types/fs-extra": "^5.0.0",
+    "@types/glob": "^5.0.34",
+    "@types/jest": "^22.0.1",
+    "@types/node": "^8.5.7",
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
     "graphql-tag": "^2.6.1",
+    "jest": "^22.0.4",
+    "lint-staged": "^6.0.0",
     "prettier": "^1.9.2",
-    "ts-node": "^4.1.0",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.0.1",
     "typescript": "^2.6.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
