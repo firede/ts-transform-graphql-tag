@@ -5,7 +5,12 @@
   "main": "dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "test": "rimraf test/fixture/actual/*.js && jest"
+    "dist:clean": "rimraf dist",
+    "dist:build": "tsc",
+    "dist": "npm-run-all dist:clean dist:build",
+    "test:clean": "rimraf test/fixture/actual/*.js",
+    "test:jest": "jest",
+    "test": "npm-run-all test:clean test:jest"
   },
   "repository": {
     "type": "git",
@@ -35,8 +40,10 @@
     "glob": "^7.1.2",
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
+    "husky": "^0.14.3",
     "jest": "^22.0.4",
     "lint-staged": "^6.0.0",
+    "npm-run-all": "^4.1.2",
     "prettier": "^1.9.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^22.0.1",
