@@ -1,6 +1,6 @@
 import compile from "../compile"
 import { resolve, join } from "path"
-import { readFileSync, readJsonSync } from "fs-extra"
+import { readFileSync } from "fs"
 
 function hasGraphQLTagDeclaration(rawFile) {
   return rawFile.indexOf("graphql-tag") !== -1
@@ -18,8 +18,8 @@ compile(join(actualPath, "./*.ts"))
 describe("transform a single unnamed query.", () => {
   const actualFilePath = join(actualPath, "./single-unnamed-query.js")
   const actualRaw = readFileSync(actualFilePath, "utf8")
-  const actualJson = require(actualFilePath).default
-  const expectJson = readJsonSync(join(expectPath, "./single-unnamed-query.json"))
+  const actualValue = require(actualFilePath).default
+  const expectValue = require(join(expectPath, "./single-unnamed-query.js"))
 
   it("no 'graphql-tag' import declaration", () => {
     expect(hasGraphQLTagDeclaration(actualRaw)).toBe(false)
@@ -30,7 +30,7 @@ describe("transform a single unnamed query.", () => {
   })
 
   it("result matched", () => {
-    expect(actualJson).toEqual(expectJson)
+    expect(actualValue).toEqual(expectValue)
   })
 })
 
