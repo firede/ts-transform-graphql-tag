@@ -33,3 +33,27 @@ describe("transform a single unnamed query.", () => {
     expect(actualJson).toEqual(expectJson)
   })
 })
+
+describe("does not transform template without `gql` tag.", () => {
+  const actualRaw = readFileSync(join(actualPath, "./without-gql-tag.js"), "utf8")
+
+  it("no 'graphql-tag' import declaration", () => {
+    expect(hasGraphQLTagDeclaration(actualRaw)).toBe(false)
+  })
+
+  it("does not transform template", () => {
+    expect(actualRaw.match(/`/g).length).toBe(2)
+  })
+})
+
+describe("does not transform template without tag.", () => {
+  const actualRaw = readFileSync(join(actualPath, "./without-tag.js"), "utf8")
+
+  it("no 'graphql-tag' import declaration", () => {
+    expect(hasGraphQLTagDeclaration(actualRaw)).toBe(false)
+  })
+
+  it("does not transform template", () => {
+    expect(actualRaw.match(/`/g).length).toBe(2)
+  })
+})
