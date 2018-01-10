@@ -1,5 +1,7 @@
 # ts-transform-graphql-tag
 
+[![Build Status](https://travis-ci.org/firede/ts-transform-graphql-tag.svg?branch=master)](https://travis-ci.org/firede/ts-transform-graphql-tag)
+
 Compiles GraphQL tagged template strings using [graphql-tag](https://github.com/apollographql/graphql-tag) in TypeScript files.
 
 The plugin was mostly inspired by great Babel's plugin [babel-plugin-graphql-tag](https://github.com/gajus/babel-plugin-graphql-tag).
