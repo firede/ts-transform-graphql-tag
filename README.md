@@ -6,6 +6,10 @@ The plugin was mostly inspired by great Babel's plugin [babel-plugin-graphql-tag
 
 This project is **WORK IN PROGRESS**, do **NOT** try to use it :trollface:
 
+* [x] using `gql` tagged template literals without placeholders
+* [ ] using `gql` tagged template literals with placeholders
+* [ ] Documentation
+
 ## Motivation
 
 Compiling GraphQL queries at the build time:
