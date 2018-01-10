@@ -1,5 +1,5 @@
 import gql from "graphql-tag"
-export const query = gql`
+export default gql`
   query {
     hello
   }

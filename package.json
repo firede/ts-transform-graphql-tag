@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "test": "rimraf test/fixture/*.js && jest"
+    "test": "rimraf test/fixture/actual/*.js && jest"
   },
   "repository": {
     "type": "git",
