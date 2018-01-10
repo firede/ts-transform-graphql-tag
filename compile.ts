@@ -4,6 +4,9 @@
 import * as ts from "typescript"
 import { sync as globSync } from "glob"
 import { transform } from "./src"
+import debug from "debug"
+
+const log = debug("compile")
 
 const CJS_CONFIG = {
   experimentalDecorators: true,
@@ -31,6 +34,6 @@ export default function compile(input: string, options: ts.CompilerOptions = CJS
   allDiagnostics.forEach(diagnostic => {
     let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start)
     let message = ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n")
-    console.log(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`)
+    log(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`)
   })
 }
