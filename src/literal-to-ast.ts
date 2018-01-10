@@ -20,9 +20,13 @@ export default function astify(literal: any): any {
       }
 
       return ts.createObjectLiteral(
-        Object.keys(literal).map(k => {
-          return ts.createPropertyAssignment(ts.createLiteral(k), astify(literal[k]))
-        }),
+        Object.keys(literal)
+          .filter(k => {
+            return typeof literal[k] !== "undefined"
+          })
+          .map(k => {
+            return ts.createPropertyAssignment(ts.createLiteral(k), astify(literal[k]))
+          }),
       )
   }
 }
