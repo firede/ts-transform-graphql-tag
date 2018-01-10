@@ -1,5 +1,6 @@
 import * as ts from "typescript"
 import gql from "graphql-tag"
+import astify from "./literal-to-ast"
 
 const GRAPHQL_TAG_LIB_REGEX = /^['"]graphql-tag['"]$/
 
@@ -22,7 +23,6 @@ function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile) {
         if (template.kind === ts.SyntaxKind.NoSubstitutionTemplateLiteral) {
           const query = template.getText().slice(1, -1)
           const queryDocument = gql(query)
-
           // http://facebook.github.io/graphql/October2016/#sec-Language.Query-Document
           if (queryDocument.definitions.length > 1) {
             for (const definition of queryDocument.definitions) {
@@ -34,18 +34,15 @@ function visitor(ctx: ts.TransformationContext, sf: ts.SourceFile) {
             }
           }
 
-          // TODO: astify queryDocument, return
+          return astify(queryDocument)
         }
 
         // `gql` tag with fragment interpolation
         if (template.kind === ts.SyntaxKind.TemplateExpression) {
-          console.log("tag with fragment: ", template.getText())
-
           // TODO: collect variables, join template string, etc.
+          console.log("Oops! we don't support `gql` tag with fragment yet.")
         }
       }
-
-      return ts.visitEachChild(node, visitor, ctx)
     }
 
     return ts.visitEachChild(node, visitor, ctx)
