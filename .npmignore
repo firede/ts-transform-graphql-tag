@@ -1,0 +1,7 @@
+src
+test
+coverage
+/compile.ts
+/tsconfig.json
+*.log
+.*
