@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
+    "prepush": "npm test",
     "dist:clean": "rimraf dist",
     "dist:build": "tsc",
     "dist": "npm-run-all dist:clean dist:build",

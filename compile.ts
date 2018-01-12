@@ -3,7 +3,7 @@
 
 import * as ts from "typescript"
 import { sync as globSync } from "glob"
-import { transform } from "./src"
+import { getTransformer } from "./src"
 import debug from "debug"
 
 const log = debug("compile")
@@ -26,7 +26,7 @@ export default function compile(input: string, options: ts.CompilerOptions = CJS
   const program = ts.createProgram(files, options, compilerHost)
 
   let emitResult = program.emit(undefined, undefined, undefined, undefined, {
-    before: [transform()],
+    before: [getTransformer()],
   })
 
   let allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics)

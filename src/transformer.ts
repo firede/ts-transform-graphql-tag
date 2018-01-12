@@ -1,6 +1,6 @@
 import * as ts from "typescript"
 import gql from "graphql-tag"
-import astify, { InterpolationNode } from "./literal-to-ast"
+import astify, { InterpolationNode } from "./astify"
 
 const GRAPHQL_TAG_MODULE_REGEX = /^['"]graphql-tag['"]$/
 

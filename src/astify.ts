@@ -2,6 +2,7 @@ import * as ts from "typescript"
 
 export type InterpolationNode = ts.Identifier | ts.PropertyAccessExpression
 
+// literal (and interpolations) to ast
 export default function astify(literal: any, interpolations: Array<InterpolationNode> = []): any {
   if (literal === null) {
     return ts.createNull()
