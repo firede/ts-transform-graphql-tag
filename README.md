@@ -1,6 +1,8 @@
 # ts-transform-graphql-tag
 
-[![Build Status](https://travis-ci.org/firede/ts-transform-graphql-tag.svg?branch=master)](https://travis-ci.org/firede/ts-transform-graphql-tag)
+[![npm](https://img.shields.io/npm/v/ts-transform-graphql-tag.svg)](https://www.npmjs.com/package/ts-transform-graphql-tag)
+[![Travis](https://img.shields.io/travis/firede/ts-transform-graphql-tag.svg)](https://travis-ci.org/firede/ts-transform-graphql-tag)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 Compiles GraphQL tagged template strings using [graphql-tag](https://github.com/apollographql/graphql-tag) in TypeScript files.
 
