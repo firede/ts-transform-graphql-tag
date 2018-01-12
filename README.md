@@ -6,8 +6,6 @@ Compiles GraphQL tagged template strings using [graphql-tag](https://github.com/
 
 The plugin was mostly inspired by great Babel's plugin [babel-plugin-graphql-tag](https://github.com/gajus/babel-plugin-graphql-tag).
 
-This project is **WORK IN PROGRESS**, do **NOT** try to use it :trollface:
-
 ## Motivation
 
 Compiling GraphQL queries at the build time:
@@ -50,9 +48,25 @@ npm i --save-dev graphql-tag
 * Searches for imports of `graphql-tag` and removes them.
 * Searches for [tagged template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) with `gql` identifier and compiles them using `graphql-tag`.
 
-## Examples
+## Example
 
-(TODO)
+**before**
+
+```typescript
+// with transformer
+import gql from "graphql-tag"
+export default gql`query Hello {hello}`
+```
+
+**after**
+
+```javascript
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = { "kind": "Document", "definitions": [{ "kind": "OperationDefinition", "operation": "query", "name": { "kind": "Name", "value": "Hello" }, "variableDefinitions": [], "directives": [], "selectionSet": { "kind": "SelectionSet", "selections": [{ "kind": "Field", "alias": undefined, "name": { "kind": "Name", "value": "hello" }, "arguments": [], "directives": [], "selectionSet": undefined }] } }], "loc": { "start": 0, "end": 19, "source": { "body": "query Hello {hello}", "name": "GraphQL request", "locationOffset": { "line": 1, "column": 1 } } } };
+```
+
+Need more example? run `npm test` and checkout `test/fixture/actual/*.js`.
 
 ---
 

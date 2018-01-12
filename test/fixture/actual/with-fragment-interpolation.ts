@@ -1,3 +1,4 @@
+// with transformer
 import gql from "graphql-tag"
 
 const bar = gql`
