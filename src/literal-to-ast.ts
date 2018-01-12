@@ -1,6 +1,8 @@
 import * as ts from "typescript"
 
-export default function astify(literal: any): any {
+export type InterpolationNode = ts.Identifier | ts.PropertyAccessExpression
+
+export default function astify(literal: any, interpolations: Array<InterpolationNode> = []): any {
   if (literal === null) {
     return ts.createNull()
   }
@@ -16,7 +18,7 @@ export default function astify(literal: any): any {
       return ts.createIdentifier("undefined")
     default:
       if (Array.isArray(literal)) {
-        return ts.createArrayLiteral(literal.map(astify))
+        return ts.createArrayLiteral(literal.map(item => astify(item)))
       }
 
       return ts.createObjectLiteral(
@@ -25,6 +27,21 @@ export default function astify(literal: any): any {
             return typeof literal[k] !== "undefined"
           })
           .map(k => {
+            if (k === "definitions" && interpolations.length > 0) {
+              // insert interpolations
+              return ts.createPropertyAssignment(
+                ts.createLiteral(k),
+                ts.createCall(
+                  ts.createPropertyAccess(astify(literal[k]), "concat"),
+                  /* typeArguments */ undefined,
+                  interpolations.map(item => {
+                    // add `definitions` property
+                    return ts.createPropertyAccess(item, "definitions")
+                  }),
+                ),
+              )
+            }
+
             return ts.createPropertyAssignment(ts.createLiteral(k), astify(literal[k]))
           }),
       )

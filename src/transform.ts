@@ -1,10 +1,37 @@
 import * as ts from "typescript"
 import gql from "graphql-tag"
-import astify from "./literal-to-ast"
+import astify, { InterpolationNode } from "./literal-to-ast"
 
 const GRAPHQL_TAG_MODULE_REGEX = /^['"]graphql-tag['"]$/
 
-function getVisitor(context: ts.TransformationContext /*, sourceFile: ts.SourceFile */): ts.Visitor {
+function getVisitor(context: ts.TransformationContext): ts.Visitor {
+  // `interpolations` as GLOBAL per SourceFile
+  let INTERPOLATIONS: Array<InterpolationNode>
+
+  function collectTemplateInterpolations(
+    node: ts.Node,
+    interpolations: Array<ts.Node>,
+    context: ts.TransformationContext,
+  ): ts.VisitResult<ts.Node> {
+    if (ts.isTemplateSpan(node)) {
+      const interpolation = node.getChildAt(0)
+
+      if (!ts.isIdentifier(interpolation) && !ts.isPropertyAccessExpression(interpolation)) {
+        throw new Error(
+          "Only identifiers or property access expressions are allowed by this transformer as an interpolation in a GraphQL template literal.",
+        )
+      }
+
+      interpolations.push(interpolation)
+    }
+
+    return ts.visitEachChild(
+      node,
+      childNode => collectTemplateInterpolations(childNode, interpolations, context),
+      context,
+    )
+  }
+
   const visitor: ts.Visitor = (node: ts.Node): ts.VisitResult<ts.Node> => {
     // `graphql-tag` import declaration detected
     if (ts.isImportDeclaration(node)) {
@@ -23,28 +50,23 @@ function getVisitor(context: ts.TransformationContext /*, sourceFile: ts.SourceF
       const isTemplateLiteral = ts.isNoSubstitutionTemplateLiteral(template)
 
       if (tag.getText() === "gql" && (isTemplateExpression || isTemplateLiteral)) {
-        let placeholders: Array<string> = []
+        // init interpolation
+        INTERPOLATIONS = []
 
         // remove backticks
         let source = template.getText().slice(1, -1)
 
         // `gql` tag with fragment interpolation
         if (isTemplateExpression) {
-          collectTemplatePlaceholders(template, placeholders)
+          collectTemplateInterpolations(template, INTERPOLATIONS, context)
 
           // remove embed expressions
           source = source.replace(/\$\{(.*)\}/g, "")
         }
 
         let queryDocument = getQueryDocument(source)
-        let body = astify(queryDocument)
 
-        if (placeholders.length > 0) {
-          // TODO: collect variables, join template string, etc.
-          console.log("Oops! we don't support `gql` tag with placeholders yet.")
-        }
-
-        return body
+        return astify(queryDocument, INTERPOLATIONS)
       }
     }
 
@@ -71,25 +93,9 @@ function getQueryDocument(source: string) {
   return queryDocument
 }
 
-function collectTemplatePlaceholders(node: ts.Node, placeholders: Array<string>): ts.VisitResult<ts.Node> {
-  if (ts.isTemplateSpan(node)) {
-    const placeholder = node.getChildAt(0)
-
-    if (!ts.isIdentifier(placeholder) && !ts.isPropertyAccessExpression(placeholder)) {
-      throw new Error(
-        "Only identifiers or property access expressions are allowed by this transformer as an interpolation in a GraphQL template literal.",
-      )
-    }
-
-    placeholders.push(placeholder.getText())
-  }
-
-  return ts.forEachChild(node, childNode => collectTemplatePlaceholders(childNode, placeholders))
-}
-
 // export transformerFactory as default
 export default function(): ts.TransformerFactory<ts.SourceFile> {
   return (context: ts.TransformationContext): ts.Transformer<ts.SourceFile> => {
-    return (sourceFile: ts.SourceFile) => ts.visitNode(sourceFile, getVisitor(context /*, sourceFile */))
+    return (sourceFile: ts.SourceFile) => ts.visitNode(sourceFile, getVisitor(context))
   }
 }
