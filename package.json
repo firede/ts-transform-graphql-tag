@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Compiles GraphQL tagged template strings using graphql-tag in TypeScript files.",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
+    "prepublish": "npm run dist",
     "precommit": "lint-staged",
     "prepush": "npm test",
     "dist:clean": "rimraf dist",
