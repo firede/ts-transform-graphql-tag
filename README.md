@@ -15,6 +15,11 @@ Compiling GraphQL queries at the build time:
 
 Removing the `graphql-tag` dependecy from the bundle saves approx. 50 KB.
 
+## Implementation
+
+* Searches for imports of `graphql-tag` and removes them.
+* Searches for [tagged template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) with `gql` identifier and compiles them using `graphql-tag`.
+
 ## Installation
 
 The following command adds the packages to the project as a development-time dependency:
@@ -43,7 +48,7 @@ If you using [Webpack](https://webpack.js.org/), there are two popular TypeScrip
 * [**ts-loader**](https://github.com/TypeStrong/ts-loader), supports custom transformers since v2.2.0
 
 Both loaders use the same setting `getCustomTransformers` which is an optional function that returns `{ before?: Transformer[], after?: Transformer[] }`.
-In order to inject the transformer into compilation, add it to `before` transformers array, like: `{ before: [styledComponentsTransformer] }`.
+In order to inject the transformer into compilation, add it to `before` transformers array, like: `{ before: [getTransformer()] }`.
 
 #### `awesome-typescript-loader`
 
@@ -122,11 +127,6 @@ const fuse = FuseBox.init({
 
 _[More information](https://fuse-box.org/page/configuration#typescript-custom-transformers) about using TypeScript custom transformer in FuseBox._
 
-## Implementation
-
-* Searches for imports of `graphql-tag` and removes them.
-* Searches for [tagged template literals](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals) with `gql` identifier and compiles them using `graphql-tag`.
-
 ## Example
 
 **before**
@@ -146,6 +146,12 @@ exports.default = { "kind": "Document", "definitions": [{ "kind": "OperationDefi
 ```
 
 Need more example? run `npm test` and checkout `test/fixture/actual/*.js`.
+
+## Thanks
+
+* [babel-plugin-graphql-tag](https://github.com/gajus/babel-plugin-graphql-tag)
+* [ts-transform-img](https://github.com/longlho/ts-transform-img/)
+* [typescript-plugin-styled-components](https://github.com/Igorbek/typescript-plugin-styled-components)
 
 ---
 
