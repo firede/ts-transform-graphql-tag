@@ -23,28 +23,24 @@ export default function astify(literal: any, interpolations: Array<Interpolation
       }
 
       return ts.createObjectLiteral(
-        Object.keys(literal)
-          .filter(k => {
-            return typeof literal[k] !== "undefined"
-          })
-          .map(k => {
-            if (k === "definitions" && interpolations.length > 0) {
-              // insert interpolations
-              return ts.createPropertyAssignment(
-                ts.createLiteral(k),
-                ts.createCall(
-                  ts.createPropertyAccess(astify(literal[k]), "concat"),
-                  /* typeArguments */ undefined,
-                  interpolations.map(item => {
-                    // add `definitions` property
-                    return ts.createPropertyAccess(item, "definitions")
-                  }),
-                ),
-              )
-            }
+        Object.keys(literal).map(k => {
+          if (k === "definitions" && interpolations.length > 0) {
+            // insert interpolations
+            return ts.createPropertyAssignment(
+              ts.createLiteral(k),
+              ts.createCall(
+                ts.createPropertyAccess(astify(literal[k]), "concat"),
+                /* typeArguments */ undefined,
+                interpolations.map(item => {
+                  // add `definitions` property
+                  return ts.createPropertyAccess(item, "definitions")
+                }),
+              ),
+            )
+          }
 
-            return ts.createPropertyAssignment(ts.createLiteral(k), astify(literal[k]))
-          }),
+          return ts.createPropertyAssignment(ts.createLiteral(k), astify(literal[k]))
+        }),
       )
   }
 }
