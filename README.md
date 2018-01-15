@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/ts-transform-graphql-tag.svg)](https://www.npmjs.com/package/ts-transform-graphql-tag)
 [![Travis](https://img.shields.io/travis/firede/ts-transform-graphql-tag.svg)](https://travis-ci.org/firede/ts-transform-graphql-tag)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffirede%2Fts-transform-graphql-tag.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffirede%2Fts-transform-graphql-tag?ref=badge_shield)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 Compiles GraphQL tagged template strings using [graphql-tag](https://github.com/apollographql/graphql-tag) in TypeScript files.
