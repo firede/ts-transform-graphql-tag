@@ -150,6 +150,10 @@ exports.default = { "kind": "Document", "definitions": [{ "kind": "OperationDefi
 
 Need more example? run `npm test` and checkout `test/fixture/actual/*.js`.
 
+## Related
+
+* [graphql-tag](https://github.com/apollographql/graphql-tag)
+
 ## Thanks
 
 * [babel-plugin-graphql-tag](https://github.com/gajus/babel-plugin-graphql-tag)
@@ -158,4 +162,4 @@ Need more example? run `npm test` and checkout `test/fixture/actual/*.js`.
 
 ---
 
-<p align="center">MIT &copy; <a href="https://github.com/firede">Firede</a>, built with (+ :coffee: :hearts:).<p>
+<p align="center">MIT &copy; <a href="https://github.com/firede">Firede</a>, built with :coffee: &amp; :sparkling_heart:<p>
