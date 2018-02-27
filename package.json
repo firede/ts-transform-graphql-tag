@@ -1,6 +1,6 @@
 {
   "name": "ts-transform-graphql-tag",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Compiles GraphQL tagged template strings using graphql-tag in TypeScript files.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
