@@ -1,5 +1,10 @@
 # Change log
 
+### v0.2.0
+
+* Add `graphql@^14.0.0` to peerDependencies.
+* Upgrade TypeScript to `v3.x`.
+
 ### v0.1.3
 
 * Add `graphql@^0.13.0` to peerDependencies.
