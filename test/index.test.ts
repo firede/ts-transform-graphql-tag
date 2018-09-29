@@ -2,12 +2,12 @@ import compile from "../compile"
 import { resolve, join } from "path"
 import { readFileSync } from "fs"
 
-function assertNoGraphQLTagImport(rawFile) {
-  expect(rawFile.indexOf("graphql-tag")).toBe(-1)
+function assertNoGraphQLTagImport(rawContent: string) {
+  expect(rawContent.indexOf("graphql-tag")).toBe(-1)
 }
 
-function assertNoGqlTaggedTemplate(rawFile) {
-  expect(rawFile.indexOf("gql`")).toBe(-1)
+function assertNoGqlTaggedTemplate(rawContent: string) {
+  expect(rawContent.indexOf("gql`")).toBe(-1)
 }
 
 const actualPath = resolve(__dirname, "./fixture/actual")

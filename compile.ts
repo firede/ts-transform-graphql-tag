@@ -4,7 +4,7 @@
 import * as ts from "typescript"
 import { sync as globSync } from "glob"
 import { getTransformer } from "./src"
-import debug from "debug"
+import * as debug from "debug"
 
 const log = debug("compile")
 
