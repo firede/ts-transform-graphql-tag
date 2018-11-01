@@ -6,8 +6,6 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "prepublish": "npm run dist",
-    "precommit": "lint-staged",
-    "prepush": "npm test",
     "dist:clean": "rimraf dist",
     "dist:build": "tsc",
     "dist": "npm-run-all dist:clean dist:build",
@@ -75,5 +73,11 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
   }
 }
