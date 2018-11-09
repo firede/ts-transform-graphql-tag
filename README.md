@@ -128,8 +128,6 @@ const fuse = FuseBox.init({
 })
 ```
 
-_[More information](https://fuse-box.org/page/configuration#typescript-custom-transformers) about using TypeScript custom transformer in FuseBox._
-
 ## Example
 
 **before**
