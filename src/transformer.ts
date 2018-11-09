@@ -4,7 +4,7 @@ import astify, { InterpolationNode } from "./astify"
 
 const GRAPHQL_TAG_MODULE_REGEX = /^['"]graphql-tag['"]$/
 
-function getVisitor(context: ts.TransformationContext): ts.Visitor {
+function getVisitor(context: ts.TransformationContext, sourceFile: ts.SourceFile): ts.Visitor {
   // `interpolations` as GLOBAL per SourceFile
   let INTERPOLATIONS: Array<InterpolationNode>
 
@@ -35,7 +35,7 @@ function getVisitor(context: ts.TransformationContext): ts.Visitor {
   const visitor: ts.Visitor = (node: ts.Node): ts.VisitResult<ts.Node> => {
     // `graphql-tag` import declaration detected
     if (ts.isImportDeclaration(node)) {
-      const moduleName = (node as ts.ImportDeclaration).moduleSpecifier.getText()
+      const moduleName = (node as ts.ImportDeclaration).moduleSpecifier.getText(sourceFile)
       if (GRAPHQL_TAG_MODULE_REGEX.test(moduleName)) {
         // delete it
         return undefined
@@ -96,6 +96,6 @@ function getQueryDocument(source: string) {
 // export transformerFactory as default
 export default function(): ts.TransformerFactory<ts.SourceFile> {
   return (context: ts.TransformationContext): ts.Transformer<ts.SourceFile> => {
-    return (sourceFile: ts.SourceFile) => ts.visitNode(sourceFile, getVisitor(context))
+    return (sourceFile: ts.SourceFile) => ts.visitNode(sourceFile, getVisitor(context, sourceFile))
   }
 }
