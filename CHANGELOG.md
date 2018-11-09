@@ -1,5 +1,9 @@
 # Change log
 
+### v0.2.1
+
+* Fix for inaccessible `sourceFile` in hierarchy during `getText`. (#5)
+
 ### v0.2.0
 
 * Add `graphql@^14.0.0` to peerDependencies.
