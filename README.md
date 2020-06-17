@@ -9,6 +9,11 @@ Compiles GraphQL tagged template strings using [graphql-tag](https://github.com/
 
 The plugin was mostly inspired by great Babel's plugin [babel-plugin-graphql-tag](https://github.com/gajus/babel-plugin-graphql-tag).
 
+**Warning:**
+
+> Because I moved to `@babel/preset-typescript` from `typescript`, this package is no longer maintained.  
+> However, if you are still using it, PR is welcome.
+
 ## Motivation
 
 Compiling GraphQL queries at the build time:
